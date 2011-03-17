@@ -1,0 +1,9 @@
+syntax: glob
+RELEASE.hgid
+*.bak
+tmp/*
+log/*
+target/*
+.settings/*
+.project
+.classpath
