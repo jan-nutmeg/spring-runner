@@ -19,13 +19,13 @@ import javax.management.remote.JMXServiceURL;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springrunner.service.spring.SpringServiceRunner;
+import org.springrunner.service.SpringRunner;
 
 /**
  * Invoke any operation on a jmx remote mbean.
  * 
  * <p>
- * User may use this tool to shutdown a {@link SpringServiceRunner} instance.
+ * User may use this tool to shutdown a {@link SpringRunner} instance.
  * 
  * <p>
  * Usage: java InvokeMBean <operation> [mbeanObjectName] [serviceUrl]
@@ -42,7 +42,7 @@ import org.springrunner.service.spring.SpringServiceRunner;
  * java InvokeMBean :list-mbeans *:* service:jmx:rmi:///jndi/rmi://localhost:12345/jmxrmi -Djmx.user=<name> -Djmx.passwd=<passwd>
  * </pre>
  * 
- * @see SpringServiceRunner
+ * @see SpringRunner
  * 
  * @author Zemian Deng
  */

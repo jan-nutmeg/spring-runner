@@ -6,8 +6,8 @@ package org.springrunner.service;
  * @see ServiceRunner
  * @author Zemian Deng
  */
-public interface ArgumentsSetter {
+public interface ArgumentsListener {
 	
-	public void setArguments(String[] args);
+	public void onArguments(String[] args);
 	
 }

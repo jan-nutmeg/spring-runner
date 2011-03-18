@@ -2,9 +2,6 @@ package org.springrunner.service;
 
 import java.util.Arrays;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Bootstrap and run any target {@link Service} by calling their start() and stop() methods.
  * 
@@ -12,20 +9,20 @@ import org.slf4j.LoggerFactory;
  * This class is a service itself, and the start() and stop() are simply calling the
  * target service matching methods. We intend that these method might be called multiple times
  * (such as user may want to pause the service) without exiting the JVM instance. The run()
- * and shutdownRun() are pair of methods that setup bootstrapping the JVM and trapping shutdown
+ * and shutdownRun() are pair of methods that setup to bootstrap the JVM and trapping shutdown
  * event before the JVM actually exiting.
  * 
  * <p>
  * Upon run() begins, it will register a Java shutdown hook to notify itself when
  * user sends KILL signal (eg: CTRL+C). It then invoke start() method, and then put it self into 
  * a wait state on the current thread until notified. Upon received a shutdown event, it will
- * notify the waiting thread to wake up, and then it invoke the shutdownRun() to clean, which
+ * notify the waiting thread to wake up, and then it invoke the shutdownRun(), which
  * in turn calls the stop() method.
  * 
  * <p>
  * The target service may be created dynamically by providing just the classname to
  * the constructor. Or subclass may just override the {@link #createService(String[])} method. If
- * target service implements {@link ArgumentsSetter}, then command line arguments (minus its 
+ * target service implements {@link ArgumentsListener}, then command line arguments (minus its 
  * classname) will be set.
  * 
  * <p>
@@ -36,7 +33,6 @@ import org.slf4j.LoggerFactory;
  * This class also provides a static main entry for Java command line. It will pass in command args 
  * as constructor parameter, and then invoke run().
  * 
- * 
  * <p>
  * Example: 
  * <pre>
@@ -46,6 +42,8 @@ import org.slf4j.LoggerFactory;
  * @author Zemian Deng
  */
 public class ServiceRunner extends AbstractService implements Runnable {
+	
+	protected String[] arguments;
 	protected Service service;
 	protected boolean waitAndNotify;
 	protected boolean running;
@@ -61,19 +59,8 @@ public class ServiceRunner extends AbstractService implements Runnable {
 		return running;
 	}
 	
-	public ServiceRunner() {
-	}
-	public ServiceRunner(String[] args) {
-		waitAndNotify = Boolean.valueOf(System.getProperty("waitAndNotify", "true"));
-		service = createService(args);
-
-		// Auto set target service with rest of arguments if applicable.
-		String[] serviceArgs = Arrays.copyOfRange(args, 1, args.length);
-		invokeArgumentsSetter(serviceArgs);
-	}
-	
-	protected Service createService(String[] args) {
-		String serviceClassName = args[0];
+	protected Service createService() {
+		String serviceClassName = arguments[0];
 		logger.debug("Creating new service with " + serviceClassName);
 		try {
 			Class<?> serviceClass = Class.forName(serviceClassName);
@@ -83,15 +70,22 @@ public class ServiceRunner extends AbstractService implements Runnable {
 			Object serviceObject = serviceClass.newInstance();
 			return (Service) serviceObject;
 		} catch (Exception e) {
-			throw new RuntimeException("Failed to create service with " + serviceClassName);
+			throw new RuntimeException("Failed to create service with " + serviceClassName, e);
 		}
 	}
+
+	public void init() {
+		if (service == null)
+			service = createService();
+		
+		checkAndSetArgumentListener();
+	}
 	
-	public void invokeArgumentsSetter(String[] serviceArgs)
-	{
-		if (service instanceof ArgumentsSetter) {
+	public void checkAndSetArgumentListener() {
+		if (service instanceof ArgumentsListener) {
+			String[] serviceArgs = Arrays.copyOfRange(arguments, 1, arguments.length);
 			logger.debug("Setting service with arguments=" + Arrays.asList(serviceArgs));
-			((ArgumentsSetter)service).setArguments(serviceArgs);
+			((ArgumentsListener)service).onArguments(serviceArgs);
 		}
 	}
 
@@ -170,13 +164,24 @@ public class ServiceRunner extends AbstractService implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		Logger logger = LoggerFactory.getLogger(ServiceRunner.class);
-		logger.debug("ServiceRunner args: " + Arrays.asList(args));		
-		if (args.length < 1) {
-			throw new IllegalArgumentException("Missing service classname");
+		// Process helppage
+		if (args.length < 1 || args[0].equals("-h")) {
+			System.out.println(
+				"Usage java [options] ServiceRunner <className>\n" +
+				"\n" +
+				"[options]\n" +
+				"-DwaitAndNotify=false Do not wait and block after start service. Default true.\n" +
+				"\n");
+			return;
 		}
 		
-		ServiceRunner main = new ServiceRunner(args);
+		// Create, init, and run the main runner
+		ServiceRunner main = new ServiceRunner();
+		main.arguments = args;
+		main.waitAndNotify = Boolean.valueOf(System.getProperty("waitAndNotify", "true"));
+		
+		main.init();
+		
 		main.run();
 	}
 }

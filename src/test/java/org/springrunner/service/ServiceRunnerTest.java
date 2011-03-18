@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 import org.springrunner.service.AbstractService;
-import org.springrunner.service.ArgumentsSetter;
+import org.springrunner.service.ArgumentsListener;
 import org.springrunner.service.ServiceRunner;
 
 
@@ -148,10 +148,10 @@ public class ServiceRunnerTest {
 		}
 	}
 	
-	public static class ExternalStartCounterServiceWithArgs extends AbstractService implements ArgumentsSetter {
+	public static class ExternalStartCounterServiceWithArgs extends AbstractService implements ArgumentsListener {
 
 		@Override
-		public void setArguments(String[] args) {
+		public void onArguments(String[] args) {
 			ServiceRunnerTest.serviceArgs = args;
 		}		
 

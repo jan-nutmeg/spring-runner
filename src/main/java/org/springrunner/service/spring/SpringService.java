@@ -8,7 +8,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springrunner.service.AbstractService;
-import org.springrunner.service.ArgumentsSetter;
+import org.springrunner.service.ArgumentsListener;
+import org.springrunner.service.SpringRunner;
 
 
 /**
@@ -20,11 +21,11 @@ import org.springrunner.service.ArgumentsSetter;
  * may use an URI format prefix on any of the config file (eg: file:, http: etc.) There
  * is also a custom prefix classpath: that can load as resource on Java's classpath.
  * 
- * @see SpringServiceRunner
+ * @see SpringRunner
  * 
  * @author Zemian Deng
  */
-public class SpringService extends AbstractService implements ArgumentsSetter {
+public class SpringService extends AbstractService implements ArgumentsListener {
 	
 	private ConfigurableApplicationContext appCtx;
 	private String[] xmlFiles;
@@ -37,7 +38,7 @@ public class SpringService extends AbstractService implements ArgumentsSetter {
 	}
 
 	@Override
-	public void setArguments(String[] args) {
+	public void onArguments(String[] args) {
 		xmlFiles = args;
 	}
 

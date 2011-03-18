@@ -1,5 +1,6 @@
 package org.springrunner.service;
 
+import java.io.File;
 import java.io.FileReader;
 import java.util.Properties;
 
@@ -10,10 +11,10 @@ import java.util.Properties;
  */
 public class Utils {
 	
-	public static Properties loadProperties(String name) {
+	public static Properties loadProperties(File file) {
 		Properties props = new Properties();
 		try {
-			props.load(new FileReader(name));
+			props.load(new FileReader(file));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

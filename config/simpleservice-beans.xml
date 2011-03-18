@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+			
+	<!-- Use explicit service lifecycles.
+	<bean id="simpleService1" class="org.springrunner.service.SimpleService" init-method="start" destroy-method="stop">
+	</bean>
+	<bean id="simpleService2" class="org.springrunner.service.SimpleService" init-method="start" destroy-method="stop">
+	</bean>
+	<bean id="simpleService3" class="org.springrunner.service.SimpleService" init-method="start" destroy-method="stop">
+	</bean>
+	-->
+	<bean id="simpleService1" class="org.springrunner.service.SimpleService" init-method="start" destroy-method="stop">
+	</bean>
+	
+	<!-- Use a container to start services
+	<bean id="simpleService1" class="org.springrunner.service.SimpleService">
+	</bean>
+	<bean id="simpleService2" class="org.springrunner.service.SimpleService">
+	</bean>
+	<bean id="simpleService3" class="org.springrunner.service.SimpleService">
+	</bean>
+	<bean id="serviceContainer" class="org.springrunner.service.ServiceContainer" init-method="start" destroy-method="stop">
+		<property name="services">
+			<list>
+				<ref bean="simpleService1"/>
+				<ref bean="simpleService2"/>
+				<ref bean="simpleService3"/>
+			</list>
+		</property>
+	</bean>
+	-->
+	
+	<!-- Use a container to start services with a custom thread pool.
+	<bean id="simpleService1" class="org.springrunner.service.SimpleService">
+	</bean>
+	<bean id="simpleService2" class="org.springrunner.service.SimpleService">
+	</bean>
+	<bean id="simpleService3" class="org.springrunner.service.SimpleService">
+	</bean>
+	
+	<bean id="threadPool" class="java.util.concurrent.Executors" factory-method="newFixedThreadPool">
+		<constructor-arg index="0" value="3"></constructor-arg>
+	</bean>	
+	<bean id="serviceContainer" class="org.springrunner.service.ServiceContainer" init-method="start" destroy-method="stop">
+		<property name="threadPool" ref="threadPool"></property>
+		<property name="services">
+			<list>
+				<ref bean="simpleService1"/>
+				<ref bean="simpleService2"/>
+				<ref bean="simpleService3"/>
+			</list>
+		</property>
+	</bean>
+	-->
+</beans>

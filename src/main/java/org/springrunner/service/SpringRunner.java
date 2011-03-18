@@ -1,14 +1,12 @@
-package org.springrunner.service.spring;
+package org.springrunner.service;
 
 import java.lang.management.ManagementFactory;
-import java.util.Arrays;
 
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springrunner.service.ServiceRunner;
+import org.apache.commons.lang.ArrayUtils;
+import org.springrunner.service.spring.SpringService;
 
 
 /**
@@ -26,42 +24,19 @@ import org.springrunner.service.ServiceRunner;
  * 
  * @author Zemian Deng
  */
-public class SpringServiceRunner extends ServiceRunner implements SpringServiceRunnerMBean {
+public class SpringRunner extends ServiceRunner implements SpringRunnerMBean {
 	
 	public static final String DEFAULT_JMX_NAME = "org.springrunner:name=SpringServiceRunner";
-
+	private boolean noJmx;
 	private String jmxName;
-
-	public SpringServiceRunner(String[] args) {
-		super(createRunnerArgs(args));
 		
-		// Allow user to override the jmx remote name using system props.
-		jmxName = System.getProperty("jmxName", DEFAULT_JMX_NAME);
-		setName(jmxName); // set this service name to this as well for nice logging.
-	}
-	
-	private static String[] createRunnerArgs(String[] args) {
-		String[] runnerArgs = new String[args.length + 1];
-		runnerArgs[0] = SpringService.class.getName();
-		System.arraycopy(args, 0, runnerArgs, 1, args.length);
-		return runnerArgs;
-	}
-
-	public static void main(String[] args) {
-		Logger logger = LoggerFactory.getLogger(SpringServiceRunner.class);
-		logger.debug("Main args: " + Arrays.asList(args));
-		
-		SpringServiceRunner main = new SpringServiceRunner(args);
-		main.run();
-	}
-	
 	public SpringService getSpringService() {
 		return (SpringService)service;
 	}
 
 	@Override
 	public void run() {
-		if (waitAndNotify) {
+		if (!noJmx) {
 			registerThisJmxRemoteMBean();
 		}
 		super.run();
@@ -69,7 +44,7 @@ public class SpringServiceRunner extends ServiceRunner implements SpringServiceR
 	
 	@Override
 	public void shutdown() {
-		if (waitAndNotify) {
+		if (!noJmx) {
 			unregisterThisJmxRemoteMBean();
 		}
 		notifyShutdownEvent();
@@ -107,5 +82,35 @@ public class SpringServiceRunner extends ServiceRunner implements SpringServiceR
 		} catch (Exception e) {
 			throw new RuntimeException("Failed to unregister mbean: " + jmxName, e);
 		}
+	}
+
+	public static void main(String[] args) {
+		// Process helppage
+		if (args.length < 1 || args[0].equals("-h")) {
+			System.out.println(
+				"Usage java [options] SpringRunner <springXmlFile ...>\n" +
+				"\n" +
+				"[options]\n" +
+				"-DwaitAndNotify=false Do not wait and block after start service. Default true.\n" +
+				"-DnoJmx=false         Do not register runner as MBean. Default true.\n" +
+				"-DjmxName=<name>      Change the name used to register runner as MBean.\n" +
+				"                       The default is org.springrunner:name=SpringServiceRunner\n" +
+				"\n");
+			return;
+		}
+		
+		// Build new args for this SpringRunner, insert service class name for parent runner use.
+		String[] newArgs = (String[])ArrayUtils.add(args, 0, SpringService.class.getName());
+		
+		// Create, init, and run the main runner
+		SpringRunner main = new SpringRunner();
+		main.arguments = newArgs;
+		main.waitAndNotify = Boolean.valueOf(System.getProperty("waitAndNotify", "true"));
+		main.noJmx = Boolean.valueOf(System.getProperty("noJmx", "false"));
+		main.jmxName = System.getProperty("jmxName", DEFAULT_JMX_NAME);
+		
+		main.init();
+		
+		main.run();
 	}
 }

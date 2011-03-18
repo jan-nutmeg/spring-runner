@@ -1,6 +1,5 @@
-package org.springrunner.service.spring;
+package org.springrunner.service;
 
-import org.springrunner.service.Service;
 
 /**
  * Define operations that will expose the {@link JmxSpringServiceRunner} to JMX.
@@ -9,7 +8,7 @@ import org.springrunner.service.Service;
  * 
  * @author Zemian Deng
  */
-public interface SpringServiceRunnerMBean extends Service {
+public interface SpringRunnerMBean extends Service {
 	
 	public void shutdown();
 

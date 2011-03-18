@@ -5,14 +5,13 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * A base service that provide an instance logger, a name, and a {@link #started} flag
- *  for subclass. The subclass should use the {@link #startService()} and {@link #stopService()} 
- *  methods.
+ * A base service that provides an instance logger, a name, and a {@link #started} flag
+ * for subclass. The subclass should use the {@link #startService()} and {@link #stopService()} 
+ * methods.
  * 
  * @author Zemian Deng
  */
 public abstract class AbstractService implements Service {
-	
 	
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 	protected String name;
@@ -56,7 +55,7 @@ public abstract class AbstractService implements Service {
 	
 	@Override
 	public String toString() {
-		return name;
+		return "Service[" + name + "]";
 	}
 	
 	abstract protected void startService();
