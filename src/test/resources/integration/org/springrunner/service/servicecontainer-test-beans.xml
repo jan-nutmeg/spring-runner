@@ -7,7 +7,7 @@
   <bean id="serviceContainerWithoutAutoStart" class="org.springrunner.service.ServiceContainer">
     <property name="services">
       <list>
-        <bean class="org.springrunner.unit.service.StartCounterService">
+        <bean class="org.springrunner.service.StartCounterService">
           <property name="name" value="service0"></property>
         </bean>
       </list>
@@ -17,10 +17,10 @@
   <bean id="serviceContainerWithAutoStart" class="org.springrunner.service.ServiceContainer" init-method="start" destroy-method="stop">
     <property name="services">
       <list>
-        <bean class="org.springrunner.unit.service.StartCounterService">
+        <bean class="org.springrunner.service.StartCounterService">
           <property name="name" value="service0"></property>
         </bean>
-        <bean class="org.springrunner.unit.service.StartCounterService">
+        <bean class="org.springrunner.service.StartCounterService">
           <property name="name" value="service1"></property>
         </bean>
       </list>

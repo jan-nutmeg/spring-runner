@@ -1,4 +1,4 @@
-package integration.org.springrunner.service.spring;
+package integration.org.springrunner.service;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -27,7 +27,7 @@ import org.springrunner.service.StartCounterService;
  * @author Zemian Deng
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="/deng/integration/service/spring/servicecontainer-test-beans.xml")
+@ContextConfiguration(locations="/integration/org/springrunner/service/servicecontainer-test-beans.xml")
 public class ServiceContainerTest {
 	
 	// == These resources will be injected by Spring ==
