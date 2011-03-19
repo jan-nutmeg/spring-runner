@@ -1,11 +1,12 @@
-spring-runner
-http://code.google.com/p/spring-runner
+The spring-runner project provides some simple runner services that can
+bootstrap a server process with any Spring XML configuration files.
 
+Created by: Zemian Deng <saltnlight5@gmail.com>
 
-This project provides some simple runner services that can bootstrap a server process with 
-any Spring xml configuration files.
+Project home: http://code.google.com/p/spring-runner
 
-There are wrapper scripts in "bin" directory that should works under Cygwin or Linux/Unix terminals.
+License: docs/license.txt
 
-Usage Example (Use CTRL+C to stop process):
-bin/run-spring config/my-application-beans.xml
+Quick Intro & About Page: docs/about.html
+
+User Guide: docs/user-guide.html

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html><head>
+ <link rel="icon" type="image/vnd.microsoft.icon" href="http://www.gstatic.com/codesite/ph/images/phosting.ico">
+ 
+ <script type="text/javascript">
+ 
+ 
+ 
+ 
+ var codesite_token = null;
+ 
+ 
+ var CS_env = {"token":null,"assetHostPath":"http://www.gstatic.com/codesite/ph","domainName":null,"assetVersionPath":"http://www.gstatic.com/codesite/ph/5806205219375073135","projectName":"spring-runner","projectHomeUrl":"/p/spring-runner","absoluteBaseUrl":"http://code.google.com","relativeBaseUrl":"","urlPrefix":"p","loggedInUserEmail":null};
+ </script>
+ 
+ 
+ <title>UserGuide - 
+ spring-runner -
+ 
+ 
+ A simple Spring server. - Google Project Hosting
+ </title>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+ 
+ <meta name="ROBOTS" content="NOARCHIVE">
+ 
+ <link type="text/css" rel="stylesheet" href="user-guide_files/ph_core.css">
+ 
+ <link type="text/css" rel="stylesheet" href="user-guide_files/ph_detail.css">
+ 
+ 
+ 
+ <link type="application/atom+xml" rel="alternate" href="http://code.google.com/feeds/p/spring-runner/hgchanges/basic?repo=wiki&amp;path=/UserGuide.wiki">
+ 
+ 
+<!--[if IE]>
+ <link type="text/css" rel="stylesheet" href="http://www.gstatic.com/codesite/ph/5806205219375073135/css/d_ie.css" >
+<![endif]-->
+ <style type="text/css">
+ .menuIcon.off { background: no-repeat url(http://www.gstatic.com/codesite/ph/images/dropdown_sprite.gif) 0 -42px }
+ .menuIcon.on { background: no-repeat url(http://www.gstatic.com/codesite/ph/images/dropdown_sprite.gif) 0 -28px }
+ .menuIcon.down { background: no-repeat url(http://www.gstatic.com/codesite/ph/images/dropdown_sprite.gif) 0 0; }
+ 
+ 
+ #maincol {
+ padding-top: 0;
+ padding-bottom: 0;
+ }
+
+ </style>
+<script src="user-guide_files/ga.js" async="" type="text/javascript"></script></head>
+<body class="t6">
+ <script type="text/javascript">
+ var _gaq = _gaq || [];
+ _gaq.push(
+ ['siteTracker._setAccount', 'UA-18071-1'],
+ ['siteTracker._trackPageview']);
+ 
+ (function() {
+ var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+ })();
+ </script>
+<div class="headbg">
+ <div id="gaia">
+ 
+ <span>
+ 
+ <a href="#" id="projects-dropdown" onclick="return false;"><u>My favorites</u> <small>▼</small></a>
+ | <a href="https://www.google.com/accounts/ServiceLogin?service=code&amp;ltmpl=phosting&amp;continue=http%3A%2F%2Fcode.google.com%2Fp%2Fspring-runner%2Fwiki%2FUserGuide%3Fts%3D1300561126%26updated%3DUserGuide&amp;followup=http%3A%2F%2Fcode.google.com%2Fp%2Fspring-runner%2Fwiki%2FUserGuide%3Fts%3D1300561126%26updated%3DUserGuide" onclick="_CS_click('/gb/ph/signin');"><u>Sign in</u></a>
+ 
+ </span>
+
+ </div>
+ <div class="gbh" style="left: 0pt;"></div>
+ <div class="gbh" style="right: 0pt;"></div>
+ 
+ 
+ <div style="height: 1px"></div>
+<!--[if lte IE 7]>
+<div style="text-align:center;">
+Your version of Internet Explorer is not supported. Try a browser that
+contributes to open source, such as <a href="http://www.firefox.com">Firefox</a>,
+<a href="http://www.google.com/chrome">Google Chrome</a>, or
+<a href="http://code.google.com/chrome/chromeframe/">Google Chrome Frame</a>.
+</div>
+<![endif]-->
+
+
+
+
+ <table style="padding: 0px; margin: 0px 0px 10px; width: 100%;" cellpadding="0" cellspacing="0">
+ <tbody><tr style="height: 58px;">
+ 
+ <td id="plogo">
+ <a href="http://code.google.com/p/spring-runner/">
+ 
+ <img src="user-guide_files/defaultlogo.png" alt="Logo">
+ 
+ </a>
+ </td>
+ 
+ <td style="padding-left: 0.5em;">
+ 
+ <div id="pname">
+ <a href="http://code.google.com/p/spring-runner/">spring-runner</a>
+ </div>
+ 
+ <div id="psum">
+ <a id="project_summary_link" href="http://code.google.com/p/spring-runner/">A simple Spring server.</a>
+ 
+ </div>
+ 
+ 
+ </td>
+ <td style="white-space: nowrap; text-align: right; vertical-align: bottom;">
+ 
+ <form action="/hosting/search">
+ <input size="30" name="q" type="text">
+ <input name="projectsearch" value="Search projects" type="submit">
+ </form>
+ 
+ </td></tr>
+ </tbody></table>
+
+</div>
+
+ 
+<div id="mt" class="gtb"> 
+ <a href="http://code.google.com/p/spring-runner/" class="tab ">Project&nbsp;Home</a>
+ 
+ 
+ 
+ 
+ <a href="http://code.google.com/p/spring-runner/downloads/list" class="tab ">Downloads</a>
+ 
+ 
+ 
+ 
+ 
+ <a href="http://code.google.com/p/spring-runner/w/list" class="tab active">Wiki</a>
+ 
+ 
+ 
+ 
+ 
+ <a href="http://code.google.com/p/spring-runner/issues/list" class="tab ">Issues</a>
+ 
+ 
+ 
+ 
+ 
+ <a href="http://code.google.com/p/spring-runner/source/checkout" class="tab ">Source</a>
+ 
+ 
+ 
+ 
+ 
+ <div class="gtbc"></div>
+</div>
+<table class="st" align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+ <tbody><tr>
+ 
+ 
+ 
+ <td class="subt">
+ <div class="issueDetail">
+<div class="isf">
+ 
+ <span class="inIssueList"> 
+ <span>Search</span>
+ <form action="/p/spring-runner/w/list" method="GET" style="display:inline">
+ <select id="can" name="can" style="font-size:92%">
+ <option disabled="disabled">Search within:</option>
+ 
+ <option value="1">&nbsp;All wiki pages</option>
+ <option value="3">&nbsp;Featured pages</option>
+ <option value="2" selected="selected">&nbsp;Current pages</option>
+ 
+ 
+ <option value="4">&nbsp;Deprecated pages</option>
+ 
+ </select>
+ <span>for</span>
+ <span id="qq"><input size="38" id="searchq" name="q" autocomplete="off" style="font-size: 92%;" type="text"></span>
+ 
+ 
+ <input value="Search" style="font-size: 92%;" type="submit">
+ </form>
+ </span>
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+</div>
+</div>
+
+ </td>
+ 
+ 
+ 
+ 
+ 
+ 
+ <td class="bevel-right" align="right" valign="top"></td>
+ </tr>
+</tbody></table>
+<script type="text/javascript">
+ var cancelBubble = false;
+ function _go(url) { document.location = url; }
+</script>
+
+
+<div id="maincol">
+
+ 
+<!-- IE -->
+
+
+
+
+
+
+
+ <style type="text/css">
+ .delcom { background: #e8e8e8 }
+ .commentcontent {
+ margin: 2em;
+ padding: 0px 10px;
+ width: 66em;
+ }
+ .artifactcomment {
+ border-top: 3px solid #c3d9ff;
+ }
+ #commentform {
+ border-top: 3px solid #c3d9ff;
+ }
+ </style>
+
+<div id="wikipage">
+<table>
+ <tbody><tr>
+ 
+ 
+ <td style="vertical-align: top;">
+ 
+ <div id="wikiheader">
+ 
+ <span style="font-size:120%;font-weight:bold">UserGuide</span>
+ &nbsp;
+ <div> 
+ 
+ 
+ 
+ <div id="wikiauthor" style="float:right">
+ Updated <span title="Sat Mar 19 11:58:46 2011">
+ Today (moments ago)</span>
+ 
+ by <a style="white-space: nowrap;" href="http://code.google.com/u/saltnlight5/">saltnlight5</a>
+ 
+ </div>
+ </div>
+ </div>
+ 
+ <div id="wikicontent">
+ <div class="vt" id="wikimaincol">
+ <h1><a name="Introduction"></a>Introduction<a href="#Introduction" class="section_anchor"></a></h1><p>The <strong>spring-runner</strong> project provides some simple runner services that can bootstrap a server process with any Spring XML configuration files. </p><p>We are not competing with a full blown server such as <a href="http://www.eclipse.org/virgo" rel="nofollow">Apache Virgo</a>,
+ but many times we just want a simple but functional server process to 
+bootstrap a Spring application context and let it run in background. 
+That's what this project gives you. </p><p>For those who are not familiar what <a href="http://www.springsource.org/" rel="nofollow">Spring Framework</a>
+ is, then please visit their site and learn more. Spring comes with many
+ things, but in large it is a framework that provide inversion of 
+control (IoC) container management. It has a very user and developer 
+friendly xml configuration model to manage any Plain Old Java Objects 
+(POJOs). Developers can write these POJOs for any business logic &amp; 
+services, and then use Spring to glue (config) them together 
+declaratively instead of hardcoding the service dependencies. </p><p>Though
+ Spring is flexible and easy to use, but it doesn't comes with any 
+server bootstrapper classes ready for you to run. Typical usage of 
+Spring is to start it as part of Web Container such as Tomcat, and use 
+the Servlet's <tt>ApplicationListener</tt>'s lifecycle to boostrap the Spring container. </p><p>What
+ this project offer is just a very simple, thin Java server that take 
+one or more Spring XML configuration files and run it. This is very 
+useful in a standalone environment, or even for testing. You provide all
+ the needed jars of your applications, wire the your services in an xml 
+file, then just run it. </p><p>Our server is simple, but yet provide most functional items that any typical background process would need: </p><ul><li>Any logging library that supported by SLF4J. We provide <tt>log4j</tt> as default. </li><li>A <tt>config</tt> directory that already in classpath and you can provide any XML config file there. </li><li>A system property <tt>app.home</tt> is preset in the location of your server. </li><li>A pre-configured daily rolling logfile under <tt>log</tt> directory. </li><li>The
+ server expose itself to local JMX platform mbeanserver, so it can be 
+managed remotely by any standard JMX client (eg: jconsole). </li><li>The spring-context, apache commons-lang &amp; commons-io jars are already in classpath for easy development extension. </li></ul><p></p><p>Few examples of Spring xml configuration files already provided in the <tt>config</tt> directory of this project. You can give it a try now and run it like this: </p><pre class="prettyprint"><span class="pln">cd spring</span><span class="pun">-</span><span class="pln">runner<br>bin</span><span class="pun">/</span><span class="pln">run</span><span class="pun">-</span><span class="pln">spring config</span><span class="pun">/</span><span class="pln">filepoller</span><span class="pun">-</span><span class="pln">beans</span><span class="pun">.</span><span class="pln">xml<br><br></span><span class="com"># or you can run any xml config file already in your jar/classpath</span><span class="pln"><br>bin</span><span class="pun">/</span><span class="pln">run</span><span class="pun">-</span><span class="pln">spring classpath</span><span class="pun">:</span><span class="pln">com</span><span class="pun">/</span><span class="pln">fanncy</span><span class="pun">/</span><span class="pln">company</span><span class="pun">/</span><span class="kwd">my</span><span class="pun">-</span><span class="pln">custom</span><span class="pun">-</span><span class="pln">services</span><span class="pun">-</span><span class="pln">beans</span><span class="pun">.</span><span class="pln">xml</span></pre><p>You simply add your jars into the <tt>lib</tt> directory and then any of our <tt>run-*</tt> scripts will auto picks it up and set the classpath for you. </p><p>NOTE:
+ This project is built and tested on Java 6. It should work with Java 5 
+as well, but you need to run the tests on your own. </p><h2><a name="When_not_to_use_spring-runner"></a>When not to use spring-runner<a href="#When_not_to_use_spring-runner" class="section_anchor"></a></h2><p>Well,
+ we provide a very simple server for you to do anything in a standalone 
+application; and Spring framework is flexible and comprehensive enough 
+to let you write any enterprise scale level application. Then what's 
+spring-runner not for? Well spring-runner is not an full blown JEE 
+server, it's not even Web container. So if you need those features, by 
+all mean use those servers instead. </p><p>The spring-runner has no 
+classloader, or OSGI facilities. It's just a simple server that loads 
+everything you set in the classpath and run. Simple and works for most 
+use cases. If your application is so large and unwilling to break into 
+separated Java processes, then by all means use other server such as 
+Apache Virgo, which is a official Spring powered OSGI server. Also 
+Learning curve might be a big difference. You could browse and 
+understand all spring-runner code in couple days, but it might take you 
+few months to learn other larger servers. </p><h1><a name="Running_Spring_Server"></a>Running Spring Server<a href="#Running_Spring_Server" class="section_anchor"></a></h1><p>We provided a Bash shell script <tt>bin/run-spring</tt>
+ that will run one or more Spring xml config files. This should work on 
+any Linux/Unix system that has Bash shell terminal. To run this in 
+Windows, you would need the <a href="http://www.cygwin.com/" rel="nofollow">Cygwin</a>
+ terminal. If you insist on running this on Windows without Bash shell, 
+then you can simply try java invocation on a DOS (cmd.exe) prompt like 
+this: </p><pre class="prettyprint"><span class="pln">java springrunner</span><span class="pun">.</span><span class="typ">SpringRunner</span><span class="pln"> config</span><span class="pun">/</span><span class="pln">simpleservice</span><span class="pun">-</span><span class="pln">beans</span><span class="pun">.</span><span class="pln">xml</span></pre><p>Our <tt>bin/run-spring</tt>, which inherit from <tt>run-java</tt> script that provide much more features. See "Running Java Program" section below for more. </p><h1><a name="Running_a_custom_Service_Runner"></a>Running a custom Service Runner<a href="#Running_a_custom_Service_Runner" class="section_anchor"></a></h1><p>You
+ usually want all the features Spring provide to write your business 
+service classes. But in case if you do not need Spring, and still want a
+ simple service with <tt>start()</tt> and <tt>stop()</tt> lifecycle to be bootstrapped as a server, then you can use our <tt>ServiceRunner</tt> service. </p><p>In fact our <tt>SpringRunner</tt> service is actually just an extension to the <tt>ServiceRunner</tt>. There is a <tt>bin/run-service</tt> script that invoke this. It will run with any classname that implements <tt>springrunner.Service</tt> and any arguments you want to pass for it. This gives you a place to extend our server service with your own. </p><p>Example: </p><pre class="prettyprint"><span class="pln">bin</span><span class="pun">/</span><span class="pln">run</span><span class="pun">-</span><span class="pln">service springrunner</span><span class="pun">.</span><span class="typ">SimpleService</span></pre><h1><a name="Running_any_Java_Program"></a>Running any Java Program<a href="#Running_any_Java_Program" class="section_anchor"></a></h1><p>Our project comes with a <tt>bin/run-java</tt> shell script that you can use to run any java program. This script has few enhanced features that makes it easy to use. </p><ul><li>It can be invoked from any directory in your system. </li><li>It auto setup <tt>config</tt> directory in classpath. </li><li>It auto setup any jar files in lib directory in classpath. </li><li>It provides additional <tt>-D</tt> or <tt>-cp</tt> Java options all in one line. </li><li>It let you debug the script with RUN_JAVA_DEBUG=1 </li></ul><p>See the script itself for more comments and usage. </p><p>Here are some example usages </p><pre class="prettyprint"><span class="com"># A simple java program</span><span class="pln"><br>bin</span><span class="pun">/</span><span class="pln">run</span><span class="pun">-</span><span class="pln">java springrunner</span><span class="pun">.</span><span class="pln">tool</span><span class="pun">.</span><span class="typ">SysProps</span><span class="pln"><br><br></span><span class="com"># Use Java -D option all in oneline!</span><span class="pln"><br>bin</span><span class="pun">/</span><span class="pln">run</span><span class="pun">-</span><span class="pln">java springrunner</span><span class="pun">.</span><span class="pln">tool</span><span class="pun">.</span><span class="typ">JmxClient</span><span class="pln"> shutdown </span><span class="pun">-</span><span class="typ">DjmxUser</span><span class="pun">=</span><span class="pln">tester </span><span class="pun">-</span><span class="typ">DjmxPassword</span><span class="pun">=</span><span class="pln">tester123</span></pre>
+ </div>
+ </div>
+ </td></tr><tr>
+</tr></tbody></table>
+ </div>
+
+
+ 
+
+
+
+ 
+ <br>
+ <div class="artifactcomment">
+ <span class="indicator">►</span> <a href="https://www.google.com/accounts/ServiceLogin?service=code&amp;ltmpl=phosting&amp;continue=http%3A%2F%2Fcode.google.com%2Fp%2Fspring-runner%2Fwiki%2FUserGuide%3Fts%3D1300561126%26updated%3DUserGuide&amp;followup=http%3A%2F%2Fcode.google.com%2Fp%2Fspring-runner%2Fwiki%2FUserGuide%3Fts%3D1300561126%26updated%3DUserGuide">Sign in</a> to add a comment
+ </div>
+ 
+ 
+<form name="delcom" action="../w/delComment.do" method="POST">
+ <input name="sequence_num" value="" type="hidden">
+ <input name="create_time" value="" type="hidden">
+ <input name="mode" value="" type="hidden">
+ <input name="pagename" value="UserGuide" type="hidden">
+ <input name="token" value="" type="hidden">
+</form>
+
+
+
+ <script src="user-guide_files/prettify.js"></script>
+ <script type="text/javascript">
+ prettyPrint();
+ </script>
+
+<script type="text/javascript" src="user-guide_files/dit_scripts.js"></script>
+
+
+
+  
+ 
+ <script type="text/javascript" src="user-guide_files/core_scripts.js"></script>
+ <script type="text/javascript" src="user-guide_files/codesite_product_dictionary_ph.js"></script>
+</div> 
+<div id="footer" dir="ltr">
+ 
+ <div class="text">
+ 
+ ©2011 Google -
+ <a href="http://code.google.com/projecthosting/terms.html">Terms</a> -
+ <a href="http://www.google.com/privacy.html">Privacy</a> -
+ <a href="http://code.google.com/p/support/">Project Hosting Help</a>
+ 
+ </div>
+</div>
+ <div class="hostedBy" style="margin-top: -20px;">
+ <span style="vertical-align: top;">Powered by <a href="http://code.google.com/projecthosting/">Google Project Hosting</a></span>
+ </div>
+ 
+ 
+
+
+ 
+ 
+
+
+
+<div style="display: none;" id="menuDiv-projects-dropdown" class="menuDiv instance0"><div class="menuCategory controls"><a href="http://www.google.com/accounts/ServiceLogin?service=code&amp;ltmpl=phosting&amp;continue=http%3A%2F%2Fcode.google.com%2Fp%2Fspring-runner%2Fwiki%2FUserGuide%3Fts%3D1300561126%26updated%3DUserGuide&amp;amp;followup=http%3A%2F%2Fcode.google.com%2Fp%2Fspring-runner%2Fwiki%2FUserGuide%3Fts%3D1300561126%26updated%3DUserGuide" style="display: block;" class="menuItem">Sign in to see your favorites</a><hr class="menuSeparator"><a href="http://code.google.com/more/" style="display: block;" class="menuItem">Find developer products...</a><a href="http://code.google.com/hosting/" style="display: block;" class="menuItem">Find open source projects...</a></div></div></body></html>

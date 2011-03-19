@@ -12,7 +12,8 @@
 #
 # The following env variables may be used to further customize the JVM startup.
 #   JAVA_HOME      The location of JVM home directory (exclude the bin directory).
-#   JAVA_CP        Custom Classpath prefix before the auto classpath. Defualt to ".".
+#   JAVA_CP        Custom Classpath prefix before the auto classpath. Default to empty.
+#   JAVA_OPTS      Custom additional Java options values. Default to empty.
 #   RUN_JAVA_DEBUG    If not empty, print the full java command line before executing it.
 #   RUN_JAVA_NO_PARSE If not empty, skip the auto parsing of -D and -cp options from script arguments.
 # 
@@ -30,7 +31,7 @@ if [ ! -z "$JAVA_HOME" ]; then
 fi
 
 # Setup Java Classpath
-JAVA_CP=${JAVA_CP:="."}
+JAVA_CP=${JAVA_CP:=""}
 if [ "$OS" = "Windows_NT" ]; then
 	APP_DIR="$(cygpath -w $DIR)\\.."
 	JAVA_CP="$JAVA_CP;$APP_DIR\\config"
