@@ -6,13 +6,6 @@ import java.util.Arrays;
  * Bootstrap and run any target {@link Service} by calling their start() and stop() methods.
  * 
  * <p>
- * This class is a service itself, and the start() and stop() are simply calling the
- * target service matching methods. We intend that these method might be called multiple times
- * (such as user may want to pause the service) without exiting the JVM instance. The run()
- * and shutdownRun() are pair of methods that setup to bootstrap the JVM and trapping shutdown
- * event before the JVM actually exiting.
- * 
- * <p>
  * Upon run() begins, it will register a Java shutdown hook to notify itself when
  * user sends KILL signal (eg: CTRL+C). It then invoke start() method, and then put it self into 
  * a wait state on the current thread until notified. Upon received a shutdown event, it will
@@ -20,10 +13,15 @@ import java.util.Arrays;
  * in turn calls the stop() method.
  * 
  * <p>
- * The target service may be created dynamically by providing just the classname to
- * the constructor. Or subclass may just override the {@link #createService(String[])} method. If
- * target service implements {@link ArgumentsListener}, then command line arguments (minus its 
- * classname) will be set.
+ * The target service instance is created by using the first argument to command line as classname.
+ * It will create a instance using default constructor. Or subclass may just override the 
+ * {@link #createService()} method to provide their own custom target service. 
+ * 
+ * <p>
+ * A target service may optionally implements {@link ArgumentsListener}, and then rest of the command 
+ * line arguments (minus its self target service classname) will be set. Also if target service
+ * implements {@link Initable}, then init() will be invoked before start(), and destroy() will be
+ * invoked after stop().
  * 
  * <p>
  * If user set {@link #waitAndNotify} to false (which can be set by System property also), then 
@@ -91,12 +89,24 @@ public class ServiceRunner extends AbstractService implements Runnable {
 
 	@Override
 	protected void startService() {
+		logger.info("Starting " + service);
+		
+		if (service instanceof Initable)
+			((Initable)service).init();
+		
 		service.start();
+		
+		logger.info(service + " started.");
 	}
 
 	@Override
 	protected void stopService() {
 		service.stop();
+		
+		if (service instanceof Initable)
+			((Initable)service).destroy();
+		
+		logger.info(service + " stopped.");
 	}
 
 	@Override
@@ -111,6 +121,8 @@ public class ServiceRunner extends AbstractService implements Runnable {
 		start();
 		if (waitAndNotify) {
 			registerShutdownEvent();
+
+			logger.info("Server is ready.");
 			waitForShutdownEvent();
 			shutdownRun();
 		} else {
@@ -134,9 +146,9 @@ public class ServiceRunner extends AbstractService implements Runnable {
 	}
 
 	protected void waitForShutdownEvent() {
-		logger.debug("Wait and block current thread.");
 		synchronized (this) {
 			try {
+				logger.debug("Wait and block current thread.");
 				this.wait();
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);

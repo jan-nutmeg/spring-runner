@@ -1,3 +1,17 @@
 #!/usr/bin/bash
+#
+# Start up the SpringRunner server with one or more spring XML config file.
+#
+# User may enable remote JMX service by using these system props:
+#   -DjmxName=springrunner:type=service,name=SpringRunner
+#   -Dcom.sun.management.jmxremote.port=12345
+#   -Dcom.sun.management.jmxremote.authenticate=false
+#   -Dcom.sun.management.jmxremote.ssl=false
+#
+# With remote service enabled, you may invoke any of the SpringRunnerMBean operations using the JmxClient
+# tool, including shutdown operation! For example:
+#   bin/run-java springrunner.tool.JmxClient shutdown springrunner:type=service,name=SpringRunner service:jmx:rmi:///jndi/rmi://localhost:12345/jmxrmi
+#
+
 DIR=$(dirname $0)
 $DIR/run-java springrunner.SpringRunner "$@"

@@ -25,7 +25,7 @@ import org.apache.commons.lang.ArrayUtils;
  */
 public class SpringRunner extends ServiceRunner implements SpringRunnerMBean {
 	
-	public static final String DEFAULT_JMX_NAME = "org.springrunner:name=SpringServiceRunner";
+	public static final String DEFAULT_JMX_NAME = "springrunner:type=service,name=SpringRunner";
 	private boolean noJmx;
 	private String jmxName;
 		
@@ -93,7 +93,7 @@ public class SpringRunner extends ServiceRunner implements SpringRunnerMBean {
 				"-DwaitAndNotify=false Do not wait and block after start service. Default true.\n" +
 				"-DnoJmx=false         Do not register runner as MBean. Default true.\n" +
 				"-DjmxName=<name>      Change the name used to register runner as MBean.\n" +
-				"                       The default is org.springrunner:name=SpringServiceRunner\n" +
+				"                       The default is springrunner:type=service,name=SpringRunner\n" +
 				"\n");
 			return;
 		}

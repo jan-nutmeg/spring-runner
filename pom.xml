@@ -32,6 +32,25 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<!--This is not working in that runtime scope is NOT copied :(
+					    disable it's usage and use ant to exclude test scope jars instead for now.
+					<includeScope>compile</includeScope>-->
+				</configuration>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>1.6</version>
 				<executions>
@@ -39,38 +58,30 @@
 						<phase>package</phase>
 						<configuration>
 							<target>
-								<!-- Package src only -->
-								<mkdir dir="${project.build.directory}/${project.artifactId}-${project.version}"/>
-								<copy todir="${project.build.directory}/${project.artifactId}-${project.version}">
-									<fileset dir="${basedir}">
-										<include name="**/*"/>
-										<exclude name=".hg/**"/>
-										<exclude name=".hg*"/>
-										<exclude name=".classpath"/>
-										<exclude name=".project"/>
-										<exclude name=".settings/**"/>
-										<exclude name="target/**"/>
-										<exclude name="bin/dev"/>
-									</fileset>
-								</copy>
-								<zip destfile="${project.build.directory}/${project.artifactId}-src-${project.version}.zip">
-									<fileset dir="${project.build.directory}/${project.artifactId}-${project.version}"/>
-								</zip>
-
-								<!-- Package src + binary -->
-								<mkdir dir="${project.build.directory}/dependency"/>
+								<!-- Package binary package -->
 								<mkdir dir="${project.build.directory}/${project.artifactId}-${project.version}/lib"/>
 								<copy todir="${project.build.directory}/${project.artifactId}-${project.version}/lib">
-									<fileset dir="${project.build.directory}">
-										<include name="*.jar"/>
+									<fileset dir="${basedir}/target">
+										<include name="${project.artifactId}-${project.version}.jar"/>
 									</fileset>
-									<fileset dir="${project.build.directory}/dependency">
+									<fileset dir="${basedir}/target/dependency">
 										<include name="*.jar"/>
+										<exclude name="junit*.jar"/>
+										<exclude name="hamcrest*.jar"/>
+										<exclude name="mockito*.jar"/>
+										<exclude name="objenesis*.jar"/>
+										<exclude name="*-test-*.jar"/>
+									</fileset>
+								</copy>
+								<copy todir="${project.build.directory}/${project.artifactId}-${project.version}">
+									<fileset dir="${basedir}">
+										<include name="bin/run-*"/>
+										<include name="config/*"/>
+										<include name="README*"/>
 									</fileset>
 								</copy>
 								<zip destfile="${project.build.directory}/${project.artifactId}-${project.version}.zip">
-									<fileset dir="${project.build.directory}/${project.artifactId}-${project.version}">
-									</fileset>
+									<fileset dir="${project.build.directory}/${project.artifactId}-${project.version}"/>
 								</zip>
 							</target>
 						</configuration>
@@ -98,6 +109,48 @@
 	</pluginRepositories>
 
 	<dependencies>
+		<!-- Simple Logging 4 Java libraries -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.1</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.6.1</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- Common libraries for general application development -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<!-- Spring libraries -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>3.0.5.RELEASE</version>
+			<!-- We are going to use jcl-over-slf4j instead. -->
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<!-- Testing libraries -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -122,35 +175,6 @@
 			<artifactId>spring-test</artifactId>
 			<version>3.0.5.RELEASE</version>
 			<scope>test</scope>
-		</dependency>
-		<!-- Common libraries for general application development -->
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.5</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>1.4</version>
-		</dependency>
-		<!-- Simple Logging 4 Java libraries -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.6.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.6.1</version>
-			<scope>runtime</scope>
-		</dependency>
-		<!-- Spring libraries -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>3.0.5.RELEASE</version>
 		</dependency>
 	</dependencies>
 

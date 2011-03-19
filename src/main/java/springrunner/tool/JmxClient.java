@@ -26,22 +26,7 @@ import springrunner.SpringRunner;
  * Invoke any operation on a jmx remote mbean.
  * 
  * <p>
- * User may use this tool to shutdown a {@link SpringRunner} instance.
- * 
- * <p>
- * Usage: java JmxClient <operation> [mbeanObjectName] [serviceUrl]
- * 
- * <p>
- * Example: 
- * <pre>
- * java JmxClient shutdown org.springrunner:name=JmxRemoteSpringServiceRunner service:jmx:rmi:///jndi/rmi://localhost:12345/jmxrmi
- * 
- * java JmxClient :list-ops org.springrunner:name=JmxRemoteSpringServiceRunner service:jmx:rmi:///jndi/rmi://localhost:12345/jmxrmi
- * 
- * java JmxClient :list-mbeans *:* service:jmx:rmi:///jndi/rmi://localhost:12345/jmxrmi
- * 
- * java JmxClient :list-mbeans *:* service:jmx:rmi:///jndi/rmi://localhost:12345/jmxrmi -Djmx.user=<name> -Djmx.passwd=<passwd>
- * </pre>
+ * User may use this tool to shutdown a remote {@link SpringRunner} instance.
  * 
  * @see SpringRunner
  * 
@@ -54,8 +39,8 @@ public class JmxClient {
 	private String user;
 	private String passwd;
 	private String operation;
+	private String objectName = "springrunner:type=service,name=SpringRunner";
 	private String service = "service:jmx:rmi:///jndi/rmi://localhost:12345/jmxrmi";
-	private String objectName = "org.springrunner:name=JmxRemoteSpringServiceRunner";
 
 	private void run() {
 		try {
@@ -126,10 +111,10 @@ public class JmxClient {
 				"Usage java [options] JmxClient <operation> [jmxObjectName [jmxServiceUrl]]\n" +
 				"\n" +
 				"<operation> can be any operations in the jmxObjectName, or one of following:\n" +
-				"  list-mbeans  - List all mbeans in the remote jmx service.\n" +
-				"  list-ops     - List all the operations of the jmxObjectName supports.\n" +
+				"  :list-mbeans  - List all mbeans in the remote jmx service.\n" +
+				"  :list-ops     - List all the operations of the jmxObjectName supports.\n" +
 				"\n" +
-				"Default jmxObjectName is org.springrunner:name=JmxRemoteSpringServiceRunner\n" +
+				"Default jmxObjectName is springrunner:type=service,name=SpringRunner\n" +
 				"Default jmxServiceUrl is service:jmx:rmi:///jndi/rmi://localhost:12345/jmxrmi\n" +
 				"\n" +
 				"[options]\n" +

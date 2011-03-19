@@ -60,6 +60,9 @@ else
 	CP_SEP=':'
 fi
 
+# Set application home directory sys props.
+JAVA_OPTS="$JAVA_OPTS -Dapp.home=$APP_DIR"
+
 # Setup JAVA_CP and JAVA_OPTS
 # This will parse -D and -cp options out from the script arguments.
 # This is done for convenient sake so users do not have to export JAVA_CP and JAVA_OPTS

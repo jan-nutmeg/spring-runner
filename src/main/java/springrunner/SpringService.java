@@ -50,10 +50,14 @@ public class SpringService extends AbstractService implements ArgumentsListener 
 	public void stopService() {
 		logger.debug("Stopping Spring context: " + appCtx);
 		appCtx.close();
+		appCtx = null;
 	}
 
 	// == Diagnostic Methods ==
 	public String listAppCtxBeans() {
+		if (appCtx == null) {
+			return "Spring context has not been initialized. Please try to start this service first.";
+		}
 		StringBuilder sb = new StringBuilder();
 		Map<?, ?> beans = appCtx.getBeansOfType(null); // get all concrete beans
 		for (Object key : beans.keySet()) {
@@ -66,6 +70,9 @@ public class SpringService extends AbstractService implements ArgumentsListener 
 	}
 
 	public String inspectAppCtx() {
+		if (appCtx == null) {
+			return "Spring context has not been initialized. Please try to start this service first.";
+		}
 		boolean outputTransients = false;
 		Class<?> reflectUpToClass = Object.class;
 		String appCtxStatus = ToStringBuilder.reflectionToString(appCtx, ToStringStyle.MULTI_LINE_STYLE, outputTransients, reflectUpToClass);

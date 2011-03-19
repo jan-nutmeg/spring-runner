@@ -14,8 +14,6 @@
 	<bean id="simpleService3" class="springrunner.SimpleService" init-method="start" destroy-method="stop">
 	</bean>
 	-->
-	<bean id="simpleService1" class="springrunner.SimpleService" init-method="start" destroy-method="stop">
-	</bean>
 	
 	<!-- Use a container to start services
 	<bean id="simpleService1" class="springrunner.SimpleService">
@@ -35,14 +33,13 @@
 	</bean>
 	-->
 	
-	<!-- Use a container to start services with a custom thread pool.
+	<!-- Use a container to start services with a custom thread pool. -->
 	<bean id="simpleService1" class="springrunner.SimpleService">
 	</bean>
 	<bean id="simpleService2" class="springrunner.SimpleService">
 	</bean>
 	<bean id="simpleService3" class="springrunner.SimpleService">
 	</bean>
-	
 	<bean id="threadPool" class="java.util.concurrent.Executors" factory-method="newFixedThreadPool">
 		<constructor-arg index="0" value="3"></constructor-arg>
 	</bean>	
@@ -56,5 +53,5 @@
 			</list>
 		</property>
 	</bean>
-	-->
+	
 </beans>
