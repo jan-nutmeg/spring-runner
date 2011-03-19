@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+  xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+	
+	<!-- Just some sample of data beans -->
+  <bean id="name1" class="springrunner.data.Name">
+    <property name="value" value="Thing1"></property>
+  </bean>
+  <bean id="name2" class="springrunner.data.Name">
+    <property name="value" value="Thing2"></property>
+  </bean>
+  <bean id="things" class="springrunner.data.Tuple2">
+    <constructor-arg index="0" ref="name1"></constructor-arg>
+    <constructor-arg index="1" ref="name2"></constructor-arg>
+  </bean>
+  <bean id="sample" class="springrunner.data.sample.SampleType">
+    <property name="objectVal" ref="things"></property>
+  </bean>
+  <bean id="sampleAndNil" class="springrunner.data.Tuple2">
+    <constructor-arg index="0" ref="sample"></constructor-arg>
+    <constructor-arg index="1">
+      <util:constant static-field="springrunner.data.Nil.VALUE"/>
+    </constructor-arg>
+  </bean>
+
+  <!-- Create a task that display above data. -->
+  <bean id="fixedOutputProcessor" class="springrunner.processor.FixedOutputProcessor">
+    <property name="output">
+      <list>
+        <ref bean="sampleAndNil"/>
+      </list>
+    </property>
+  </bean>
+  <bean id="taskExecutor" class="springrunner.service.TaskExecutor" init-method="start" destroy-method="stop">
+    <property name="tasks">
+      <list>
+        <ref bean="fixedOutputProcessor"/>
+      </list>
+    </property>
+  </bean>
+
+</beans>

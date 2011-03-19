@@ -7,24 +7,24 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 			
 	<!-- Use explicit service lifecycles.
-	<bean id="simpleService1" class="org.springrunner.service.SimpleService" init-method="start" destroy-method="stop">
+	<bean id="simpleService1" class="springrunner.SimpleService" init-method="start" destroy-method="stop">
 	</bean>
-	<bean id="simpleService2" class="org.springrunner.service.SimpleService" init-method="start" destroy-method="stop">
+	<bean id="simpleService2" class="springrunner.SimpleService" init-method="start" destroy-method="stop">
 	</bean>
-	<bean id="simpleService3" class="org.springrunner.service.SimpleService" init-method="start" destroy-method="stop">
+	<bean id="simpleService3" class="springrunner.SimpleService" init-method="start" destroy-method="stop">
 	</bean>
 	-->
-	<bean id="simpleService1" class="org.springrunner.service.SimpleService" init-method="start" destroy-method="stop">
+	<bean id="simpleService1" class="springrunner.SimpleService" init-method="start" destroy-method="stop">
 	</bean>
 	
 	<!-- Use a container to start services
-	<bean id="simpleService1" class="org.springrunner.service.SimpleService">
+	<bean id="simpleService1" class="springrunner.SimpleService">
 	</bean>
-	<bean id="simpleService2" class="org.springrunner.service.SimpleService">
+	<bean id="simpleService2" class="springrunner.SimpleService">
 	</bean>
-	<bean id="simpleService3" class="org.springrunner.service.SimpleService">
+	<bean id="simpleService3" class="springrunner.SimpleService">
 	</bean>
-	<bean id="serviceContainer" class="org.springrunner.service.ServiceContainer" init-method="start" destroy-method="stop">
+	<bean id="serviceContainer" class="springrunner.ServiceContainer" init-method="start" destroy-method="stop">
 		<property name="services">
 			<list>
 				<ref bean="simpleService1"/>
@@ -36,17 +36,17 @@
 	-->
 	
 	<!-- Use a container to start services with a custom thread pool.
-	<bean id="simpleService1" class="org.springrunner.service.SimpleService">
+	<bean id="simpleService1" class="springrunner.SimpleService">
 	</bean>
-	<bean id="simpleService2" class="org.springrunner.service.SimpleService">
+	<bean id="simpleService2" class="springrunner.SimpleService">
 	</bean>
-	<bean id="simpleService3" class="org.springrunner.service.SimpleService">
+	<bean id="simpleService3" class="springrunner.SimpleService">
 	</bean>
 	
 	<bean id="threadPool" class="java.util.concurrent.Executors" factory-method="newFixedThreadPool">
 		<constructor-arg index="0" value="3"></constructor-arg>
 	</bean>	
-	<bean id="serviceContainer" class="org.springrunner.service.ServiceContainer" init-method="start" destroy-method="stop">
+	<bean id="serviceContainer" class="springrunner.ServiceContainer" init-method="start" destroy-method="stop">
 		<property name="threadPool" ref="threadPool"></property>
 		<property name="services">
 			<list>

@@ -7,17 +7,17 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 		
 	<!-- Use a taskExecutor to start tasks with a custom thread pool. -->
-	<bean id="simpleTask1" class="org.springrunner.service.SimpleTask">
+	<bean id="simpleTask1" class="springrunner.SimpleTask">
 	</bean>
-	<bean id="simpleTask2" class="org.springrunner.service.SimpleTask">
+	<bean id="simpleTask2" class="springrunner.SimpleTask">
 	</bean>
-	<bean id="simpleTask3" class="org.springrunner.service.SimpleTask">
+	<bean id="simpleTask3" class="springrunner.SimpleTask">
 	</bean>
 	
 	<bean id="threadPool" class="java.util.concurrent.Executors" factory-method="newFixedThreadPool">
 		<constructor-arg index="0" value="3"></constructor-arg>
 	</bean>	
-	<bean id="taskExecutor" class="org.springrunner.service.TaskExecutor" init-method="start" destroy-method="stop">
+	<bean id="taskExecutor" class="springrunner.TaskExecutor" init-method="start" destroy-method="stop">
 		<property name="threadPool" ref="threadPool"></property>
 		<property name="tasks">
 			<list>

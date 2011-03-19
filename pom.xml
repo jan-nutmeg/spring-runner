@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.spring-runner</groupId>
 	<artifactId>spring-runner</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -30,6 +30,56 @@
 					<disableXmlReport>true</disableXmlReport>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<configuration>
+							<target>
+								<!-- Package src only -->
+								<mkdir dir="${project.build.directory}/${project.artifactId}-${project.version}"/>
+								<copy todir="${project.build.directory}/${project.artifactId}-${project.version}">
+									<fileset dir="${basedir}">
+										<include name="**/*"/>
+										<exclude name=".hg/**"/>
+										<exclude name=".hg*"/>
+										<exclude name=".classpath"/>
+										<exclude name=".project"/>
+										<exclude name=".settings/**"/>
+										<exclude name="target/**"/>
+										<exclude name="bin/dev"/>
+									</fileset>
+								</copy>
+								<zip destfile="${project.build.directory}/${project.artifactId}-src-${project.version}.zip">
+									<fileset dir="${project.build.directory}/${project.artifactId}-${project.version}"/>
+								</zip>
+
+								<!-- Package src + binary -->
+								<mkdir dir="${project.build.directory}/dependency"/>
+								<mkdir dir="${project.build.directory}/${project.artifactId}-${project.version}/lib"/>
+								<copy todir="${project.build.directory}/${project.artifactId}-${project.version}/lib">
+									<fileset dir="${project.build.directory}">
+										<include name="*.jar"/>
+									</fileset>
+									<fileset dir="${project.build.directory}/dependency">
+										<include name="*.jar"/>
+									</fileset>
+								</copy>
+								<zip destfile="${project.build.directory}/${project.artifactId}-${project.version}.zip">
+									<fileset dir="${project.build.directory}/${project.artifactId}-${project.version}">
+									</fileset>
+								</zip>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>  
 
@@ -46,7 +96,7 @@
 			<url>https://oss.sonatype.org/content/groups/public</url>
 		</pluginRepository>
 	</pluginRepositories>
-	
+
 	<dependencies>
 		<!-- Testing libraries -->
 		<dependency>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+  xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+  
+  <!--  Simple FilePoller
+  <bean id="filePoller" class="springrunner.file.FilePollerService">
+    <property name="dir" value="file:///C:/tmp/filepoller/inbox"></property>
+    <property name="period" value="3000"></property>
+    <property name="fileProcessor">
+        <bean id="simpleProcessor" class="springrunner.processor.SimpleProcessor">
+        </bean>
+    </property>
+  </bean>
+  <bean id="serviceContainer" class="springrunner.ServiceContainer" init-method="start" destroy-method="stop">
+    <property name="services">
+      <list>
+        <ref bean="filePoller"/>
+      </list>
+    </property>
+  </bean> -->
+  
+  <!-- FilePoller example in a pipeflow -->
+  <bean id="fileProcessor" class="springrunner.processor.PipeflowProcessor">
+    <property name="usePipeflowOutput" value="true" />
+    <property name="processors">
+      <list>
+        <bean id="stagingFile" class="springrunner.processor.file.MoveFile">
+          <property name="dir" value="file:///C:/tmp/filepoller/staging"></property>
+        </bean>
+        <bean id="flatToXmlProcessor" class="springrunner.processor.PipeflowProcessor">
+          <property name="usePipeflowOutput" value="false" />
+          <property name="processors">
+            <list>
+			  <bean id="readFile" class="springrunner.processor.file.TextFileReader"></bean>
+			  <bean id="dataLoggerBefore" class="springrunner.processor.SimpleProcessor"></bean>
+			  <bean id="flatToXml" class="springrunner.processor.file.FlatRecordToXml"></bean>
+			  <bean id="dataLoggerAfter" class="springrunner.processor.SimpleProcessor"></bean>
+			  <bean id="writeFile" class="springrunner.processor.file.TextFileWriter">
+			    <property name="dir" value="file:///C:/tmp/filepoller/outbox"></property>
+			  </bean>
+            </list>
+          </property>
+        </bean>
+        <bean id="archiveFile" class="springrunner.processor.file.MoveFile">
+          <property name="dir" value="file:///C:/tmp/filepoller/archive"></property>
+        </bean>
+      </list>
+    </property>
+  </bean>
+  <bean id="filePoller" class="springrunner.file.FilePollerService">
+    <property name="dir" value="file:///C:/tmp/filepoller/inbox"></property>
+    <property name="period" value="3000"></property>
+    <property name="fileProcessor" ref="fileProcessor"></property>
+  </bean>
+  <bean id="serviceContainer" class="springrunner.ServiceContainer" init-method="start" destroy-method="stop">
+    <property name="services">
+      <list>
+        <ref bean="filePoller"/>
+      </list>
+    </property>
+  </bean>
+  
+</beans>
