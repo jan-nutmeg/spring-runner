@@ -1,0 +1,8 @@
+spring-runner-1.0.0
+ * Project is setup in GoogleCode: spring-runner.
+ * Migrate experimental code into this official project.
+ * The Java project is setup with maven, including packaging config.
+ * The SpringRunner server is ready to go.
+ * The ServiceRunner is available
+ * The JmxClient tool is available.
+ * The FilePollerService is available.
